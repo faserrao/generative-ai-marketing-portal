@@ -11,6 +11,7 @@ pytest
 ## Streamlit local dev
 PyYAML
 langchain
+langchain-community
 s3fs
 streamlit
 streamlit_extras
@@ -20,3 +21,5 @@ PyJWT
 qrcode
 python-dotenv
 st_pages
+
+pydantic
