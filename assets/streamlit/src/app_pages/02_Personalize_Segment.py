@@ -2,7 +2,12 @@ import streamlit as st
 import pandas as pd
 import langchain as lc
 from langchain import PromptTemplate
+
+# FAS
+# Made changed based on error message received.
 from langchain.llms.bedrock import Bedrock
+# from langchain_community.llms.bedrock import Bedrock
+
 import os
 import sys
 import time
