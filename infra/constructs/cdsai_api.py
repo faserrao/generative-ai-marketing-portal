@@ -306,6 +306,8 @@ class CDSAIAPIConstructs(Construct):
                 "SMS_IDENTITY": self.sms_identity,
             },
             role=self.lambda_pinpoint_message_role,
+            # FAS Attached the Layer - because of need for the requests_toolbelt module.
+            layers=[self.layer_langchain],
         )
         self.pinpoint_message_lambda.add_alias(
             "Warm",
@@ -584,10 +586,23 @@ class CDSAIAPIConstructs(Construct):
             resources=[f"arn:aws:sms-voice:{Aws.REGION}:{Aws.ACCOUNT_ID}:phone-number/{self.sms_identity}"],
             effect=iam.Effect.ALLOW,
         )
+
+        ## FAS: Needed to define a policy statement that gives the Lambda
+        ## permission to access the SES Identity.
+
+        # Create a policy statement for SES email sending with a specific ARN
+        ##
+        ## pinpoint_ses_send_email_policy_statement = iam.PolicyStatement(
+        ##    actions=["ses:SendEmail", "ses:SendRawEmail"],
+        ##   resources=[f"arn:aws:ses:{Aws.REGION}:{Aws.ACCOUNT_ID}:identity/{self.email_identity}"],
+        ##    effect=iam.Effect.ALLOW,
+       ## )
+
         pinpoint_send_message_policy = iam.Policy(
             self,
             id=f"{stack_name}-pinpoint-send-message-policy",
             policy_name=f"{stack_name}-pinpoint-send-message-policy",
+        ##    statements=[pinpoint_send_message_policy_statement, pinpoint_send_sms_voice_policy_statement, pinpoint_ses_send_email_policy_statement],
             statements=[pinpoint_send_message_policy_statement, pinpoint_send_sms_voice_policy_statement],
         )
 

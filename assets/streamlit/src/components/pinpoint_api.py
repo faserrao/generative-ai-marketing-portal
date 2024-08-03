@@ -119,4 +119,3 @@ def invoke_s3_fetch_files(
         headers={"Authorization": access_token},
     )
     return response.content
-
