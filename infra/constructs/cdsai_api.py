@@ -592,18 +592,18 @@ class CDSAIAPIConstructs(Construct):
 
         # Create a policy statement for SES email sending with a specific ARN
         ##
-        ## pinpoint_ses_send_email_policy_statement = iam.PolicyStatement(
-        ##    actions=["ses:SendEmail", "ses:SendRawEmail"],
-        ##   resources=[f"arn:aws:ses:{Aws.REGION}:{Aws.ACCOUNT_ID}:identity/{self.email_identity}"],
-        ##    effect=iam.Effect.ALLOW,
-       ## )
+        pinpoint_ses_send_email_policy_statement = iam.PolicyStatement(
+            actions=["ses:SendEmail", "ses:SendRawEmail"],
+            resources=[f"arn:aws:ses:{Aws.REGION}:{Aws.ACCOUNT_ID}:identity/{self.email_identity}"],
+            effect=iam.Effect.ALLOW,
+        )
 
         pinpoint_send_message_policy = iam.Policy(
             self,
             id=f"{stack_name}-pinpoint-send-message-policy",
             policy_name=f"{stack_name}-pinpoint-send-message-policy",
-        ##    statements=[pinpoint_send_message_policy_statement, pinpoint_send_sms_voice_policy_statement, pinpoint_ses_send_email_policy_statement],
-            statements=[pinpoint_send_message_policy_statement, pinpoint_send_sms_voice_policy_statement],
+            statements=[pinpoint_send_message_policy_statement, pinpoint_send_sms_voice_policy_statement, pinpoint_ses_send_email_policy_statement],
+        ##    statements=[pinpoint_send_message_policy_statement, pinpoint_send_sms_voice_policy_statement],
         )
 
         pinpoint_send_message_policy.attach_to_role(self.lambda_pinpoint_message_role)

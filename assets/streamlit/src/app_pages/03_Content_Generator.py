@@ -279,28 +279,6 @@ def marketingBaseTemplate(channel, product_data, lang, template):
             + language_instruction
         )
 
-    elif channel == "CUSTOM":
-        print("Channel is CUSTOM")
-        message_format = (
-            """
-        Given the above details, generate 3 email parts in the specified format:
-
-        Subject: Subject of the email 
-        HTML Body: Content of the email but formatted nicely in HTML
-        Text Body: Same content of the email formatted in plaintext
-
-        Format:
-        The returned string should be constructed as follows:
-        1. Start with the delimiter "###SUBJECT###" followed by the subject content, and then end with "###END###".
-        2. Next, start with the delimiter "###HTMLBODY###" followed by the HTML body content, and then end with "###END###". Make sure the generated HTML code has opening and ending <html> tags.
-        3. Finally, start with the delimiter "###TEXTBODY###" followed by the text body content, and then end with "###END###".
-        4. Only output the text not any instructions.
-        5. Output language is {lang}
-        6. Ensure the format is adhered to strictly.
-        """
-            + language_instruction
-        )
-
     # TODO Implement for other channels (push)
     else:
         raise ValueError("Channel not found")

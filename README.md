@@ -255,38 +255,17 @@ streamlit run src/Home.py
   | /batch-segment-jobs      | personalize_batch_segment_jobs    | Fetch all current batch segment jobs information in Amazon Personalize                                                                                                                                                                 |
   | /batch-segment-job       | personalize_batch_segment_job     | If GET,describe the Amazon Personalize job status. If POST, create an Amazon Personalize batch segment job.                                                                                                                            |
 
-## Click2Mail Integration
-
-- The Click2Mail connection will be defined using the Pinpoint CUSTOME channel
-- Functions that call the Click2Mail apis have been added to assets/lambda/genai_pinpoint_message lambda directory
-- The functions that call the Click2Mail apis are called from the pinpoint_message lambda function when the channel_type is CUSTOM
-- The channel type CUSTOM was added as a channel type in the assets/lambda/genai_pinpoint_message/pinpoint_message.py 'IF' statemnetl
-- The channel type CUSTOM was added as a channel type in the assets/streamlit/src/app_pages/03_Content_Generator.py 'IF' statemnetl
-- Note that in the first interation of the Click2Mail integration the Click2Mail Address (ie., the brick and mortar address) was placed in the Address field of the Pinpoint segment. The street address, city, state, and zipcode fileds were separated by a delimeter so they can be easily parsed out in the code.  Sample
-CUSTOM,11408 Night Star Way%Reston%VA%20194,ACTIVE,NONE.....
-- The next interation of this extension will add street address, city, state, and zipcode as custom user fields in the Pinpoint segment.
-
-  ## Files/Functions Modified
-
-  | **Source Code File Name** | **Function Nmme** | **Modification Description**                                                                                                                                                                                                                        |
-  | ------------------------ | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-  |generative-ai-marketing-portal/assets/streamlit/src/app_pages/03_Content_Generator.py | marketingBaseTemplate() | Added CUSTOM as a channel_type option
-  | generative-ai-marketing-portal/assets/lambda/genai_pinpoint_message/pinpoint_message.py | lambda_handler() | Added CUSTOM as a channel_type option
-  | generative-ai-marketing-portal/assets/lambda/genai_pinpoint_message/pinpoint_message.py | parse_custom_address() | Added this function to parse Address into into individual fields (street, city, state, zipcode)
-
-  ## Functions Added to pinpoint_message Lambda directory
-
-  | **Function Name**| **Description** | **C2M API Documentation**                                                                                                                                                                                                                        |
-  | ------------------------ | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | assets/lambda/genai_pinpoint_message/c2m_add_credit.py | Calls the C2M Purchase Creidt API| https://developers.click2mail.com/docs/add-credit 
-  | assets/lambda/genai_pinpoint_message/c2m_check_job_status.py |Calls the C2M Check Job Status API| https://developers.click2mail.com/docs/check-job-status
-  | assets/lambda/genai_pinpoint_message/c2m_create_job.py |Calls the C2M Create Job API | https://developers.click2mail.com/docs/create-a-job
-  | assets/lambda/genai_pinpoint_message/c2m_submit_job.py|Calls C2M Submit Job API| https://developers.click2mail.com/docs/submit-a-job
-  | assets/lambda/genai_pinpoint_message/c2m_upload_address_list.py | Calls the C2M Upload Address List API| https://developers.click2mail.com/docs/upload-an-address-list
-  | assets/lambda/genai_pinpoint_message/c2m_upload_document.py | Calls the C2M Upload Document API| https://developers.click2mail.com/docs/add-credit
-
 ## Contributors
 
 Tristan Nguyen (@nnatri) [LinkedIn](https://www.linkedin.com/in/nguyennhianhtri/)
 
 Philipp Kaindl (@philikai) [LinkedIn](https://www.linkedin.com/in/philipp-kaindl/)
+
+
+*** Modifications made by Frank Serrao (faserrao@gmail.com) while working for Click2Mail. ***
+
+*** This version includes the fixes developed by Frank Serrao, *** 
+*** and applied to the original version pointed to in the Blog Post ***
+*** The demo will NOT work without the appllication of these modifications. ***
+*** The fixes are detailed in the file InstallIssues.xlsx.  This ***
+*** implemnetation has been installed and tested with python 3.9. ***
